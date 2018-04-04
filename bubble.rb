@@ -1,11 +1,11 @@
-arr = [19,51,10,44,32,18,21,88]
-
-(arr.length - 1).times do
-  arr.drop(1).each_with_index do |i, idx|
-    j = arr[idx]
-    if j > i 
-      arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
+def bubble_sort(arr)
+  (arr.length - 1).times do
+    arr.drop(1).each_with_index do |j, i|
+      x = arr[i]
+      if x > j 
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+      end
     end
-    p arr
   end
+  arr
 end

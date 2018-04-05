@@ -1,18 +1,16 @@
 class Array
   def bubble_sort_by
-    (0..self.size).times do
-      (0..self.size).times do |i|
-        @left = self[i]
-        @right = self[i + 1]
-        if yield < 0
-          self[i + 1] = @left
-          self[i] = @right
+    (self.size - 1).times do
+      (self.size - 1).times do |i|
+        if yield(self[i], self[i + 1]) > 0
+          self[i + 1] = self[i]
+          self[i] = self [i + 1]
         else
           next
         end
       end
     end
-    self
+    p self
   end
 end
 

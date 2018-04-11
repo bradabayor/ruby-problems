@@ -1,7 +1,9 @@
 module Enumerable
   
   def my_each
-    self.size.times { |i| yield(self[i]) }
+    for i in self
+      yield(i)
+    end
   end
   
   def my_each_with_index
@@ -19,7 +21,7 @@ module Enumerable
         selected << self[i - 1] 
       end
     end
-    return selected
+    selected
   end
-  
+
 end

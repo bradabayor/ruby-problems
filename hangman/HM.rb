@@ -1,9 +1,10 @@
-puts "Hangman Initialized"
+require_relative "bin/game.rb"
 
-words = []
+module Hangman
 
-lines = File.readlines "lib/5desk.txt"
-lines.each do |word|
-  words << word
+game = Game.new
+game.load_answers
+game.get_answer
+
 end
 

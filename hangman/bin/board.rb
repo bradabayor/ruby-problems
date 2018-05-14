@@ -10,9 +10,11 @@ module Hangman
       letters.times do
         @slots << "_"
       end
+      puts @slots.join(" ")
     end
 
-    def render
+    def render_turn(locations,guess)
+      locations.each { |slot| @slots[slot] = guess } if locations != nil
       puts @slots.join(" ")
     end
 

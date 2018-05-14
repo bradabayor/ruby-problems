@@ -3,7 +3,7 @@ require_relative "messages.rb"
 
 module Hangman
   class Game 
-    attr_accessor :answer, :locations
+    attr_accessor :answer, :locations, :guess
 
     def initialize
       @board = Board.new
@@ -26,14 +26,16 @@ module Hangman
 
     def play_round
       Messages.get_letter
-      guess = gets.chomp.to_s
-      @answer.each_with_index { |l,i| @locations << i if l == guess }
+      @guess = gets.chomp.to_s
+      @answer.each_with_index { |l,i| @locations << i if l == @guess }
     end
 
+    def start_board
+      @board.create_board(@answer.length)
+    end
 
     def render_board
-      @board.create_board(@answer.length)
-      @board.render
+      @board.render_turn(@locations,@guess)
     end
   end
 end

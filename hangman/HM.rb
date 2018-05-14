@@ -8,10 +8,12 @@ game.get_answer
 
 p game.answer
 
-game.render_board
+game.start_board
 game.play_round
 
 p game.locations
+
+game.render_board
 
 end
 

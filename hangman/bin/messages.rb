@@ -6,9 +6,9 @@ module Hangman
       }
     end
 
-    def self.turn_counter(turn)
+    def self.display_status(letters, turn)
       puts %{
-  Turns Remaining: #{turn}
+  Turns Remaining: #{turn} - Guessed Letters: #{letters.join(",")}
       }
     end
   end

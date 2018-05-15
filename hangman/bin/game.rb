@@ -1,9 +1,11 @@
+require 'yaml'
+
 require_relative "board.rb"
 require_relative "messages.rb"
 
 module Hangman
   class Game 
-    attr_accessor :answer, :locations, :guess
+    attr_accessor :answer, :locations, :guess, :guessed_letters
 
     def initialize
       # Load answers
@@ -20,12 +22,15 @@ module Hangman
       # Initialize Board
       @board = Board.new(@answer.length)
       @locations = []
+
+      @guessed_letters = []
     end
 
     def play_round
       @locations = []
       Messages.get_letter
       @guess = gets.chomp.to_s
+      @guessed_letters << @guess
       @answer.each_with_index { |l,i| @locations << i if l == @guess }
       @board.render_turn(@locations,@guess)
     end
@@ -36,6 +41,14 @@ module Hangman
 
     def check_win?
       return true if @board.slots == @answer
+    end
+
+    def to_yaml(turn)
+      YAML.dump ({
+        :turn => turn,
+        :answer => @answer,
+        :guessed_letters => @guessed_letters
+      })
     end
   end
 end

@@ -11,7 +11,7 @@ turn = 8
 until turn == -1 do
   game.play_round
   break if game.check_win?
-  Messages.turn_counter(turn)
+  Messages.display_status(game.guessed_letters, turn)
   turn -= 1
 end
 

@@ -2,14 +2,14 @@ module Hangman
   class Board
     attr_reader :slots
 
-    def initialize(letters)
+    def initialize
       @slots = []
-      letters.times do
-        @slots << "_"
-      end
     end
 
     def create_board(letters)
+      letters.times do
+        @slots << "_"
+      end
       puts @slots.join(" ")
     end
 

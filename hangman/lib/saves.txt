@@ -1,0 +1,1 @@
+{"turns_rem":2,"answer":["p","a","r","n","a","i","b","a"],"guessed":["i","o","a","g","q","i"]}

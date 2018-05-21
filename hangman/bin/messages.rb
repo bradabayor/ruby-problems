@@ -1,9 +1,10 @@
 module Hangman
   class Messages
-    def self.get_letter
+    def self.get_response
       puts %{
-  Enter Letter:
+  Enter Letter or Action:
       }
+      return response = gets.chomp.to_s
     end
 
     def self.display_status(letters, turn)

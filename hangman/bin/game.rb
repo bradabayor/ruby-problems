@@ -1,38 +1,34 @@
-require 'yaml'
+require 'json'
 
 require_relative "board.rb"
 require_relative "messages.rb"
 
 module Hangman
   class Game 
-    attr_accessor :answer, :locations, :guess, :guessed_letters
+    attr_accessor :board, :answer, :locations, :guess, :guessed
 
     def initialize
-      # Load answers
       @words = []
-      lines = File.readlines "lib/5desk.txt"
+      lines = File.readlines "lib/answers.txt"
       lines.each do |word|
         @words << word
       end
-
-      # Select Answer
-      num = rand(@words.length.to_i)
-      @answer = @words[num].downcase.split("").slice(0..-3)
-
-      # Initialize Board
-      @board = Board.new(@answer.length)
+      
+      @board = Board.new
       @locations = []
-
-      @guessed_letters = []
+      @guessed = []
     end
 
-    def play_round
+    def select_answer
+      num = rand(@words.length.to_i)
+      @answer = @words[num].downcase.split("").slice(0..-3)
+    end
+
+    def play_round(guess)
       @locations = []
-      Messages.get_letter
-      @guess = gets.chomp.to_s
-      @guessed_letters << @guess
-      @answer.each_with_index { |l,i| @locations << i if l == @guess }
-      @board.render_turn(@locations,@guess)
+      @guessed << guess
+      @answer.each_with_index { |l,i| @locations << i if l == guess }
+      @board.render_turn(@locations,guess)
     end
 
     def initial_render
@@ -43,12 +39,14 @@ module Hangman
       return true if @board.slots == @answer
     end
 
-    def to_yaml(turn)
-      YAML.dump ({
-        :turn => turn,
+    def save_json(turn)
+      save = JSON.dump({
+        :turns_rem => turn,
         :answer => @answer,
-        :guessed_letters => @guessed_letters
+        :guessed => @guessed
       })
+      File.open("lib/saves.txt", "w") { |f| f.write(save) }
     end
+
   end
 end

@@ -9,6 +9,4 @@ list.append(5)
 list.append(3)
 list.prepend(8)
 
-p list.inspect
-
-p list.size
+p list.contains?(12)

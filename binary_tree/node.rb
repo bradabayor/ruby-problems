@@ -1,11 +1,10 @@
 class Node
   attr_accessor :value, :left, :right
 
-  def initialize(value, root=false, right=nil, left=nil)
+  def initialize(value, right=nil, left=nil)
     @value = value
     @right = right
     @left = left
-    @root = root
   end
 
   def insert(new_value)
@@ -16,36 +15,39 @@ class Node
     end   
   end
 
+=begin
   def inspect
     "{#{value}::#{left.inspect}|#{right.inspect}}"
   end
-
-  def build_tree(arr)
-    arr.each { |value| self.insert(value) }
-  end
-
-  def breadth_first_search(search_value)
-
-  end
+=end
 end
 
 class BST
-  attr_accessor :root
+  attr_accessor :root, :value, :queue
 
   def initialize(arr)
     @root = Node.new(arr[0])
-    arr.drop(1).each do |num|
+    arr.each do |num|
       @root.insert(num)
     end
   end
-
+=begin
   def inspect
     "BST => #{@root.inspect}"
   end
+=end
+  def breadth_first_search(search_value)
+    queue = []
+    until queue.empty?
+      return true if queue[0].value == search_value
+      queue << queue[0].left if !queue[0].left.nil?
+      queue << queue[0].left if !queue[0].left.nil?
+      queue.shift
+    end
+    nil
+  end
 end
-
-
 
 tree = BST.new([3,6,4,1,8,9,3,4,5])
 
-p tree.inspect
+tree.breadth_first_search(6)
